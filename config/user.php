@@ -1,5 +1,8 @@
 <?php
 return [
+    'route' => [
+        'prefix' => env('USER_ROUTE_PREFIX', 'user'),
+    ],
     'title' => 'User Center',
     'logo' => '/vendor/user/images/logo.svg',
     'logo_dark' => '/vendor/user/images/logo_dark.svg',
@@ -9,13 +12,13 @@ return [
     'copyright' => '2014 - ' . date('Y') . ' ' . config('app.name'),
     'footer_menus' => [[
         'name' => 'about',
-        'url' => 'dashboard'
+        'url' => 'user.dashboard'
     ], [
         'name' => 'support',
-        'url' => 'register'
+        'url' => 'user.register'
     ], [
         'name' => 'contact_us',
-        'url' => 'login'
+        'url' => 'user.login'
     ]],
-    'terms_and_conditions_url' => 'login',
+    'terms_and_conditions_url' => 'user.login',
 ];

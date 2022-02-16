@@ -1,5 +1,10 @@
 # User Center of [Dealskoo](https://www.dealskoo.com)
 
+## Remove file
+- database/migrations/2014_10_12_000000_create_users_table.php
+- database/migrations/2014_10_12_100000_create_password_resets_table.php
+- database/factories/UserFactory.php
+
 ## Install
 
 ```base

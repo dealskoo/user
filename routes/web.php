@@ -13,15 +13,6 @@ use Dealskoo\User\Http\Controllers\DashboardController;
 use Dealskoo\User\Http\Controllers\NotificationController;
 use Dealskoo\User\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-
-Route::get('/verify', function () {
-    return redirect(route('user.verification.notice', [config('country.prefix') => Str::upper(config('country.default_alpha2'))]), 301);
-})->name('verification.notice');
-
-Route::get('/confirm', function () {
-    return redirect(route('user.verification.notice', [config('country.prefix') => Str::upper(config('country.default_alpha2'))]), 301);
-})->name('password.confirm');
 
 Route::middleware(['web', 'locale'])->prefix('/{' . config('country.prefix') . '}')->name('user.')->group(function () {
 
@@ -50,7 +41,7 @@ Route::middleware(['web', 'locale'])->prefix('/{' . config('country.prefix') . '
             ->middleware(['throttle:6,1'])
             ->name('verification.send');
 
-        Route::middleware(['verified:verification.notice', 'active'])->group(function () {
+        Route::middleware(['verified:user.verification.notice', 'active'])->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'handle'])->name('dashboard');
             Route::prefix(config('user.route.prefix'))->get('/search', [SearchController::class, 'handle'])->name('search');
 
@@ -84,7 +75,7 @@ Route::middleware(['web', 'locale'])->prefix('/{' . config('country.prefix') . '
                 Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('show');
             });
 
-            Route::middleware(['password.confirm:password.confirm'])->group(function () {
+            Route::middleware(['password.confirm:user.password.confirm'])->group(function () {
 
             });
         });

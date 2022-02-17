@@ -11,7 +11,6 @@ use Dealskoo\User\Contracts\Support\DefaultDashboard;
 use Dealskoo\User\Contracts\Support\DefaultSearcher;
 use Dealskoo\User\Menu\UserPresenter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Nwidart\Menus\Facades\Menu;
 
 class UserServiceProvider extends ServiceProvider
@@ -54,7 +53,7 @@ class UserServiceProvider extends ServiceProvider
         Menu::create('user_navbar', function ($menu) {
             $menu->enableOrdering();
             $menu->setPresenter(UserPresenter::class);
-            $menu->route('user.dashboard', 'user::user.dashboard', [config('country.prefix') => Str::upper(config('country.default_alpha2'))], ['icon' => 'uil-dashboard me-1']);
+            $menu->route('user.dashboard', 'user::user.dashboard', [], ['icon' => 'uil-dashboard me-1']);
         });
 
         AdminMenu::route('admin.users.index', 'user::user.users', [], ['icon' => 'uil-users-alt', 'permission' => 'users.index'])->order(5);

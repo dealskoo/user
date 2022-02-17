@@ -78,7 +78,7 @@ class Authenticate extends Middleware
             if ($request->is(config('admin.route.prefix') . '/*')) {
                 return route('admin.login');
             }  else {
-                return route('user.login');
+                return route('user.login',[config('country.prefix')=>request()->country()->alpha2]);
             }
         }
     }
@@ -106,7 +106,7 @@ class RedirectIfAuthenticated
                 if ($guard == 'admin') {
                     return redirect(route('admin.dashboard'));
                 } else {
-                    return redirect(route('user.dashboard'));
+                    return redirect(route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]));
                 }
             }
         }

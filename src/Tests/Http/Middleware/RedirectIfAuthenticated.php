@@ -17,7 +17,7 @@ class RedirectIfAuthenticated extends Middleware
                 if ($guard == 'admin') {
                     return redirect(route('admin.dashboard'));
                 } else {
-                    return redirect(route('user.dashboard'));
+                    return redirect(route('user.dashboard', [config('country.prefix') => request()->country()->alpha2]));
                 }
             }
         }

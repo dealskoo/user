@@ -8,7 +8,8 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-end">
-                <a href="{{ route('user.dashboard') }}" class="logo-dark">
+                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                   class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
                 <a href="{{ route('user.dashboard') }}" class="logo-light">
@@ -26,7 +27,7 @@
             </div>
 
             <!-- form -->
-            <form action="{{ route('user.dashboard') }}">
+            <form action="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}">
                 <div class="mb-0 d-grid text-center">
                     <button class="btn btn-primary" type="submit"><i class="mdi mdi-home me-1"></i>
                         {{ __('user::auth.back_to') }} {{ __('user::auth.login') }}

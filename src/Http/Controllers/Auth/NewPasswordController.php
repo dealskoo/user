@@ -2,8 +2,8 @@
 
 namespace Dealskoo\User\Http\Controllers\Auth;
 
+use Dealskoo\User\Events\UserPasswordReset;
 use Dealskoo\User\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +23,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('auth.reset-password', ['request' => $request]);
+        return view('user::auth.reset-password', ['request' => $request]);
     }
 
     /**
@@ -53,7 +53,7 @@ class NewPasswordController extends Controller
                     'remember_token' => Str::random(60),
                 ])->save();
 
-                event(new PasswordReset($user));
+                event(new UserPasswordReset($user));
             }
         );
 
@@ -61,7 +61,7 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-            ? redirect()->route('login', [config('country.prefix') => request()->country()->alpha2])->withInput($request->only('email'))->with('status', __($status))
+            ? redirect()->route('user.login', [config('country.prefix') => request()->country()->alpha2])->withInput($request->only('email'))->with('status', __($status))
             : back()->withInput($request->only('email'))
                 ->withErrors(['email' => __($status)]);
     }

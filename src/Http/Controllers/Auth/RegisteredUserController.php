@@ -5,7 +5,7 @@ namespace Dealskoo\User\Http\Controllers\Auth;
 use Dealskoo\User\Http\Controllers\Controller;
 use Dealskoo\User\Models\User;
 use Dealskoo\Country\Models\Country;
-use Illuminate\Auth\Events\Registered;
+use Dealskoo\User\Events\UserRegistered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
             'country_id' => $request->country_id,
             'source' => $request->source,
         ]);
-        event(new Registered($user));
+        event(new UserRegistered($user));
 
         $this->guard()->login($user);
 

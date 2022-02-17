@@ -9,7 +9,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a
-                                href="{{ route('user.dashboard') }}">{{ __('user::user.dashboard') }}</a></li>
+                                href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}">{{ __('user::user.dashboard') }}</a>
+                        </li>
                         <li class="breadcrumb-item active">{{ __('user::user.notifications') }}</li>
                     </ol>
                 </div>
@@ -33,7 +34,7 @@
                                         <li @if(!$notification->read_at)class="unread"@endif>
                                             <div class="row">
                                                 <div class="col-lg-10">
-                                                    <a href="{{ route('user.notification.show',$notification) }}">{{ __($notification->data['title']) }}</a>
+                                                    <a href="{{ route('user.notification.show',[config('country.prefix')=>request()->country()->alpha2,$notification]) }}">{{ __($notification->data['title']) }}</a>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <span>{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</span>

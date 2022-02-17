@@ -1,8 +1,8 @@
 <?php
 return [
-    'title' => '商家中心',
+    'title' => '用户中心',
     'sign_in' => '登录',
-    'sign_in_tip' => '请输入邮箱地址和密码登录到商家中心。',
+    'sign_in_tip' => '请输入邮箱地址和密码登录到用户中心。',
     'email_address' => '邮箱地址',
     'email_address_placeholder' => '请输入邮箱地址',
     'password' => '密码',

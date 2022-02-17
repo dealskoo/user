@@ -1,6 +1,6 @@
 @extends('admin::layouts.panel')
 
-@section('title',__('seller::seller.sellers_list'))
+@section('title',__('user::user.users_list'))
 @section('body')
     <div class="row">
         <div class="col-12">
@@ -9,10 +9,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a
                                 href="{{ route('admin.dashboard') }}">{{ __('admin::admin.dashboard') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('seller::seller.sellers_list') }}</li>
+                        <li class="breadcrumb-item active">{{ __('user::user.users_list') }}</li>
                     </ol>
                 </div>
-                <h4 class="page-title">{{ __('seller::seller.sellers_list') }}</h4>
+                <h4 class="page-title">{{ __('user::user.users_list') }}</h4>
             </div>
         </div>
     </div>
@@ -21,19 +21,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="sellers_table" class="table table-centered w-100 dt-responsive nowrap">
+                        <table id="users_table" class="table table-centered w-100 dt-responsive nowrap">
                             <thead class="table-light">
                             <tr>
-                                <th>{{ __('seller::seller.id') }}</th>
-                                <th>{{ __('seller::seller.name') }}</th>
-                                <th>{{ __('seller::seller.slug') }}</th>
-                                <th>{{ __('seller::seller.email') }}</th>
-                                <th>{{ __('seller::seller.country') }}</th>
-                                <th>{{ __('seller::seller.source') }}</th>
-                                <th>{{ __('seller::seller.status') }}</th>
-                                <th>{{ __('seller::seller.created_at') }}</th>
-                                <th>{{ __('seller::seller.updated_at') }}</th>
-                                <th>{{ __('seller::seller.action') }}</th>
+                                <th>{{ __('user::user.id') }}</th>
+                                <th>{{ __('user::user.name') }}</th>
+                                <th>{{ __('user::user.slug') }}</th>
+                                <th>{{ __('user::user.email') }}</th>
+                                <th>{{ __('user::user.country') }}</th>
+                                <th>{{ __('user::user.source') }}</th>
+                                <th>{{ __('user::user.status') }}</th>
+                                <th>{{ __('user::user.created_at') }}</th>
+                                <th>{{ __('user::user.updated_at') }}</th>
+                                <th>{{ __('user::user.action') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,10 +48,10 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-            let table = $('#sellers_table').dataTable({
+            let table = $('#users_table').dataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('admin.sellers.index') }}",
+                "ajax": "{{ route('admin.users.index') }}",
                 "language": language,
                 "pageLength": pageLength,
                 "columns": [
@@ -69,8 +69,8 @@
                 "order": [[0, "desc"]],
                 "drawCallback": function () {
                     $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-                    $('#sellers_table tr td:nth-child(2)').addClass('table-user');
-                    $('#sellers_table tr td:nth-child(10)').addClass('table-action');
+                    $('#users_table tr td:nth-child(2)').addClass('table-user');
+                    $('#users_table tr td:nth-child(10)').addClass('table-action');
                 }
             });
         });

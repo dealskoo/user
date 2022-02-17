@@ -1,8 +1,8 @@
 <?php
 return [
-    'title' => 'Seller Center',
+    'title' => 'User Center',
     'sign_in' => 'Sign In',
-    'sign_in_tip' => 'Enter your email address and password to access seller panel.',
+    'sign_in_tip' => 'Enter your email address and password to access user panel.',
     'email_address' => 'Email address',
     'email_address_placeholder' => 'Enter your email',
     'password' => 'Password',

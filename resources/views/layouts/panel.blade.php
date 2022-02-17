@@ -67,28 +67,27 @@
                             </div>
                         </li>
                         @php
-                            $locale_code = session('user_locale',config('app.locale'));
-                            $locale = config('user.languages')[$locale_code];
+                            $countries = \Dealskoo\Country\Models\Country::all();
                         @endphp
                         <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
                             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown"
                                id="topbar-languagedrop" href="#" role="button" aria-haspopup="true"
                                aria-expanded="false">
-                                <img src="{{ asset($locale['icon']) }}" alt="user-image"
+                                <img src="{{ asset(request()->country()->flag_url) }}" alt="user-image"
                                      class="me-1" height="12"> <span
-                                    class="align-middle">{{ $locale['name'] }}</span> <i
+                                    class="align-middle">{{ request()->country()->alpha2 }}</span> <i
                                     class="mdi mdi-chevron-down align-middle"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu"
                                  aria-labelledby="topbar-languagedrop">
 
-                                @foreach(config('user.languages') as $code => $language)
-                                    @if($locale_code!=$code)
-                                        <a href="{{ route('user.locale',['locale'=>$code]) }}"
+                                @foreach($countries as $country)
+                                    @if($country->alpha2 != request()->country()->alpha2)
+                                        <a href="{{ route('user.dashboard',[config('country.prefix')=> $country->alpha2]) }}"
                                            class="dropdown-item notify-item">
-                                            <img src="{{ asset($language['icon']) }}"
+                                            <img src="{{ asset($country->flag_url) }}"
                                                  alt="user-image" class="me-1" height="12"> <span
-                                                class="align-middle">{{ $language['name'] }}</span>
+                                                class="align-middle">{{ $country->alpha2 }}</span>
                                         </a>
                                     @endif
                                 @endforeach
@@ -112,7 +111,7 @@
                                 <div class="dropdown-item noti-title">
                                     <h5 class="m-0">
                                                 <span class="float-end">
-                                                    <a href="{{ route('user.notification.all_read') }}"
+                                                    <a href="{{ route('user.notification.all_read',[config('country.prefix')=>request()->country()->alpha2]) }}"
                                                        class="text-dark">
                                                         <small>{{ __('user::user.clear_all') }}</small>
                                                     </a>
@@ -122,7 +121,7 @@
 
                                 <div style="max-height: 230px;" data-simplebar>
                                     @foreach($notifications as $notification)
-                                        <a href="{{ route('user.notification.show',$notification) }}"
+                                        <a href="{{ route('user.notification.show',[config('country.prefix')=>request()->country()->alpha2,$notification]) }}"
                                            class="dropdown-item notify-item">
                                             <div class="notify-icon bg-primary">
                                                 <i class="{{ $notification->data['icon'] }}"></i>
@@ -141,7 +140,7 @@
                                 </div>
 
                                 <!-- All-->
-                                <a href="{{ route('user.notification.list') }}"
+                                <a href="{{ route('user.notification.list',[config('country.prefix')=>request()->country()->alpha2]) }}"
                                    class="dropdown-item text-center text-primary notify-item notify-all">
                                     {{ __('user::user.view_all') }}
                                 </a>
@@ -176,29 +175,34 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="{{ route('user.account.profile') }}" class="dropdown-item notify-item">
+                                <a href="{{ route('user.account.profile',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                   class="dropdown-item notify-item">
                                     <i class="mdi mdi-account-circle me-1"></i>
                                     <span>{{ __('user::user.my_account') }}</span>
                                 </a>
 
-                                <a href="{{ route('user.account.email') }}" class="dropdown-item notify-item">
+                                <a href="{{ route('user.account.email',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                   class="dropdown-item notify-item">
                                     <i class="mdi mdi-account-edit me-1"></i>
                                     <span>{{ __('user::user.update_email') }}</span>
                                 </a>
 
-                                <a href="{{ route('user.account.password') }}" class="dropdown-item notify-item">
+                                <a href="{{ route('user.account.password',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                   class="dropdown-item notify-item">
                                     <i class="mdi mdi-lock-outline me-1"></i>
                                     <span>{{ __('user::user.update_password') }}</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="{{ route('user.logout') }}"
+                                <a href="{{ route('user.logout',[config('country.prefix')=>request()->country()->alpha2]) }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-logout me-1"></i>
                                     <span>{{ __('user::user.logout') }}</span>
                                 </a>
-                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST"
+                                <form id="logout-form"
+                                      action="{{ route('user.logout',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                      method="POST"
                                       class="d-none">@csrf</form>
                             </div>
                         </li>
@@ -212,7 +216,8 @@
                         </div>
                     </a>
                     <div class="app-search">
-                        <form method="get" action="{{ route('user.search') }}">
+                        <form method="get"
+                              action="{{ route('user.search',[config('country.prefix')=>request()->country()->alpha2]) }}">
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                        placeholder="{{ __('user::user.search_placeholder') }}" id="top-search"

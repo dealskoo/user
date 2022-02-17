@@ -8,10 +8,12 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-start">
-                <a href="{{ route('user.dashboard') }}" class="logo-dark">
+                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                   class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard') }}" class="logo-light">
+                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                   class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
             </div>
@@ -28,7 +30,8 @@
                 @endif
             </div>
             <!-- form -->
-            <form action="{{ route('user.password.update') }}" method="post">
+            <form action="{{ route('user.password.update',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                  method="post">
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">

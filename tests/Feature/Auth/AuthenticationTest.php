@@ -16,7 +16,7 @@ class AuthenticationTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
-        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
+        URL::defaults([config('country.prefix') => request()->country()->alpha2]);
     }
 
 

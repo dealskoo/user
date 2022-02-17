@@ -18,7 +18,7 @@ class EmailVerificationTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
-        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
+        URL::defaults([config('country.prefix') => request()->country()->alpha2]);
     }
 
     public function test_email_verification_screen_can_be_rendered()

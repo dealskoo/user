@@ -8,7 +8,7 @@ use Dealskoo\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dealskoo\User\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
 
 class RegistrationTest extends TestCase
 {
@@ -18,11 +18,12 @@ class RegistrationTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
+        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
     }
 
     public function test_registration_screen_can_be_rendered()
     {
-        $response = $this->get(route('user.register', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->get(route('user.register'));
 
         $response->assertStatus(200);
     }
@@ -31,7 +32,7 @@ class RegistrationTest extends TestCase
     {
         Event::fake();
         $country = Country::factory()->create();
-        $response = $this->post(route('user.register', [config('country.prefix') => request()->country()->alpha2]), [
+        $response = $this->post(route('user.register'), [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',
@@ -40,7 +41,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated('user');
-        $response->assertRedirect(route('user.dashboard', [config('country.prefix') => request()->country()->alpha2]));
+        $response->assertRedirect(route('user.dashboard'));
         Event::assertDispatched(UserRegistered::class);
         $user = User::get()->first();
     }

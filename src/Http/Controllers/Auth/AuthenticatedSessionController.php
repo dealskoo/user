@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('user.dashboard', [config('country.prefix') => request()->country()->alpha2]));
+        return redirect()->intended(route('user.dashboard'));
     }
 
     /**
@@ -49,6 +49,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect(route('user.login', [config('country.prefix') => request()->country()->alpha2]));
+        return redirect(route('user.login'));
     }
 }

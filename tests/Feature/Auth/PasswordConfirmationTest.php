@@ -6,6 +6,7 @@ use Dealskoo\User\Models\User;
 use Dealskoo\Country\Models\Country;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Dealskoo\User\Tests\TestCase;
+use Illuminate\Support\Facades\URL;
 
 class PasswordConfirmationTest extends TestCase
 {
@@ -15,13 +16,14 @@ class PasswordConfirmationTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
+        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
     }
 
     public function test_confirm_password_screen_can_be_rendered()
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user, 'user')->get(route('user.password.confirm', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->actingAs($user, 'user')->get(route('user.password.confirm'));
 
         $response->assertStatus(200);
     }
@@ -30,7 +32,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user, 'user')->post(route('user.password.confirm', [config('country.prefix') => request()->country()->alpha2]), [
+        $response = $this->actingAs($user, 'user')->post(route('user.password.confirm'), [
             'password' => 'password',
         ]);
 
@@ -42,7 +44,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user, 'user')->post(route('user.password.confirm', [config('country.prefix') => request()->country()->alpha2]), [
+        $response = $this->actingAs($user, 'user')->post(route('user.password.confirm'), [
             'password' => 'wrong-password',
         ]);
 

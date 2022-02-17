@@ -56,6 +56,6 @@ class RegisteredUserController extends Controller
 
         $this->guard()->login($user);
 
-        return redirect(route('user.dashboard', [config('country.prefix') => request()->country()->alpha2]));
+        return redirect(route('user.dashboard'));
     }
 }

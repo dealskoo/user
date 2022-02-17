@@ -6,7 +6,7 @@
             <div class="upload-image">
                 <i class="mdi mdi-camera upload-button"></i>
                 <input class="file-upload" type="file" accept="image/*"
-                       data-action="{{ route('user.account.avatar',[config('country.prefix')=>request()->country()->alpha2]) }}"/>
+                       data-action="{{ route('user.account.avatar') }}"/>
             </div>
         </div>
 

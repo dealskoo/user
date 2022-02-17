@@ -30,7 +30,6 @@ class ResetUserPassword extends ResetPassword
         }
 
         return url(route('user.password.reset', [
-            config('country.prefix') => request()->country()->alpha2,
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));

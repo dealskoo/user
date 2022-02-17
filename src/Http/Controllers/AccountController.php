@@ -60,9 +60,9 @@ class AccountController extends Controller
             $user = $request->user();
             $user->email = $email;
             $user->save();
-            return redirect()->route('user.account.email', [config('country.prefix') => request()->country()->alpha2])->with('success', __('Email Change Success'));
+            return redirect()->route('user.account.email')->with('success', __('Email Change Success'));
         } else {
-            return redirect()->route('user.account.email', [config('country.prefix') => request()->country()->alpha2])->withErrors([__('Link expired')]);
+            return redirect()->route('user.account.email')->withErrors([__('Link expired')]);
         }
     }
 

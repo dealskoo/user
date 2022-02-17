@@ -8,11 +8,11 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-start">
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
@@ -35,7 +35,7 @@
             </div>
 
             <!-- form -->
-            <form action="{{ route('user.login',[config('country.prefix')=>request()->country()->alpha2]) }}"
+            <form action="{{ route('user.login') }}"
                   method="post">
                 @csrf
 
@@ -46,7 +46,7 @@
                            placeholder="{{ __('user::auth.email_address_placeholder') }}">
                 </div>
                 <div class="mb-3">
-                    <a href="{{ route('user.password.request',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.password.request') }}"
                        class="text-muted float-end"><small>{{ __('user::auth.forgot_your_password') }}</small></a>
                     <label for="password" class="form-label">{{ __('user::auth.password') }}</label>
                     <div class="input-group">
@@ -76,7 +76,7 @@
             <!-- Footer-->
             <footer class="footer footer-alt">
                 <p class="text-muted">{{ __('user::auth.do_not_have_an_account') }} <a
-                        href="{{ route('user.register',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                        href="{{ route('user.register') }}"
                         class="text-muted ms-1"><b>{{ __('user::auth.sign_up') }}</b></a></p>
             </footer>
 

@@ -25,7 +25,7 @@ class ActiveAuth
             Auth::guard('user')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect(route('user.banned', [config('country.prefix') => request()->country()->alpha2]));
+            return redirect(route('user.banned'));
         }
     }
 }

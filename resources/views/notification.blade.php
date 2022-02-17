@@ -7,10 +7,10 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a
-                                href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}">{{ __('user::user.dashboard') }}</a>
+                                href="{{ route('user.dashboard') }}">{{ __('user::user.dashboard') }}</a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('user.notification.list',[config('country.prefix')=>request()->country()->alpha2]) }}">{{ __('user::user.notifications') }}</a>
+                                href="{{ route('user.notification.list') }}">{{ __('user::user.notifications') }}</a>
                         </li>
                         <li class="breadcrumb-item active">{{ __('user::user.notification') }}</li>
                     </ol>

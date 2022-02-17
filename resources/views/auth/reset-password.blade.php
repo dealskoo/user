@@ -8,11 +8,11 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-start">
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
@@ -30,7 +30,7 @@
                 @endif
             </div>
             <!-- form -->
-            <form action="{{ route('user.password.update',[config('country.prefix')=>request()->country()->alpha2]) }}"
+            <form action="{{ route('user.password.update') }}"
                   method="post">
                 @csrf
 

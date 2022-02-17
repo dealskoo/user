@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a
-                                href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}">{{ __('user::user.dashboard') }}</a>
+                                href="{{ route('user.dashboard') }}">{{ __('user::user.dashboard') }}</a>
                         </li>
                         <li class="breadcrumb-item active">{{ __('user::user.update_email') }}</li>
                     </ol>
@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <form
-                        action="{{ route('user.account.email',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                        action="{{ route('user.account.email') }}"
                         method="post">
                         @csrf
                         <h5 class="mb-4 text-uppercase"><i

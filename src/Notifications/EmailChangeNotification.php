@@ -62,7 +62,6 @@ class EmailChangeNotification extends Notification
             'user.account.email.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
-                config('country.prefix') => request()->country()->alpha2,
                 'hash' => sha1($notifiable->routes['mail']),
             ]
         );

@@ -8,11 +8,11 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-start">
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                <a href="{{ route('user.dashboard') }}"
                    class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
@@ -32,7 +32,7 @@
 
 
             <!-- form -->
-            <form action="{{ route('user.register',[config('country.prefix')=>request()->country()->alpha2]) }}"
+            <form action="{{ route('user.register') }}"
                   method="post">
                 @csrf
                 <input type="hidden" name="source" value="{{ request('s') }}">
@@ -81,7 +81,7 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" checked id="checkbox-signup" tabindex="5">
                         <label class="form-check-label" for="checkbox-signup">{{ __('user::auth.i_accept') }} <a
-                                href="{{ route(config('user.terms_and_conditions_url'),[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                href="{{ route(config('user.terms_and_conditions_url')) }}"
                                 target="_blank"
                                 class="text-muted">{{ __('user::auth.terms_and_conditions') }}</a></label>
                     </div>
@@ -97,7 +97,7 @@
             <!-- Footer-->
             <footer class="footer footer-alt">
                 <p class="text-muted">{{ __('user::auth.already_have_account') }} <a
-                        href="{{ route('user.login',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                        href="{{ route('user.login') }}"
                         class="text-muted ms-1"><b>{{ __('user::auth.log_in') }}</b></a>
                 </p>
             </footer>

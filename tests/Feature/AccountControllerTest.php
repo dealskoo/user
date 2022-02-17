@@ -11,6 +11,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class AccountControllerTest extends TestCase
 {
@@ -20,12 +21,13 @@ class AccountControllerTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
+        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
     }
 
     public function test_profile()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user, 'user')->get(route('user.account.profile', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->actingAs($user, 'user')->get(route('user.account.profile'));
         $response->assertStatus(200);
     }
 
@@ -33,7 +35,7 @@ class AccountControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user1 = User::factory()->make();
-        $response = $this->actingAs($user, 'user')->post(route('user.account.profile', [config('country.prefix') => request()->country()->alpha2]), $user1->only([
+        $response = $this->actingAs($user, 'user')->post(route('user.account.profile'), $user1->only([
             'name',
             'bio',
             'company_name',
@@ -48,7 +50,7 @@ class AccountControllerTest extends TestCase
     {
         Storage::fake();
         $user = User::factory()->create();
-        $response = $this->actingAs($user, 'user')->post(route('user.account.avatar', [config('country.prefix') => request()->country()->alpha2]), [
+        $response = $this->actingAs($user, 'user')->post(route('user.account.avatar'), [
             'file' => UploadedFile::fake()->image('file.jpg')
         ]);
         $response->assertStatus(200);
@@ -58,7 +60,7 @@ class AccountControllerTest extends TestCase
     public function test_email()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user, 'user')->get(route('user.account.email', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->actingAs($user, 'user')->get(route('user.account.email'));
         $response->assertStatus(200);
     }
 
@@ -67,7 +69,7 @@ class AccountControllerTest extends TestCase
         Notification::fake();
         $user = User::factory()->create();
         $user1 = User::factory()->make();
-        $response = $this->actingAs($user, 'user')->post(route('user.account.email', [config('country.prefix') => request()->country()->alpha2]), $user1->only([
+        $response = $this->actingAs($user, 'user')->post(route('user.account.email'), $user1->only([
             'email'
         ]));
         $response->assertStatus(302);
@@ -79,7 +81,7 @@ class AccountControllerTest extends TestCase
         Notification::fake();
         $user = User::factory()->create();
         $user1 = User::factory()->make();
-        $response = $this->actingAs($user, 'user')->post(route('user.account.email', [config('country.prefix') => request()->country()->alpha2]), $user1->only([
+        $response = $this->actingAs($user, 'user')->post(route('user.account.email'), $user1->only([
             'email'
         ]));
         $response->assertStatus(302);
@@ -93,7 +95,7 @@ class AccountControllerTest extends TestCase
     public function test_password()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user, 'user')->get(route('user.account.password', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->actingAs($user, 'user')->get(route('user.account.password'));
         $response->assertStatus(200);
     }
 
@@ -104,7 +106,7 @@ class AccountControllerTest extends TestCase
         $user = User::factory()->create();
         $user->password = Hash::make($password);
         $user->save();
-        $response = $this->actingAs($user, 'user')->post(route('user.account.password', [config('country.prefix') => request()->country()->alpha2]), [
+        $response = $this->actingAs($user, 'user')->post(route('user.account.password'), [
             'password' => $password,
             'new_password' => $new_password,
             'new_password_confirmation' => $new_password

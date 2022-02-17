@@ -13,11 +13,11 @@
 
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-end">
-                    <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.dashboard') }}"
                        class="logo-dark">
                         <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                     </a>
-                    <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.dashboard') }}"
                        class="logo-light">
                         <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                     </a>
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- form -->
-                <form action="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}">
+                <form action="{{ route('user.dashboard') }}">
                     <div class="mb-0 d-grid text-center">
                         <button class="btn btn-primary" type="submit"><i class="mdi mdi-home me-1"></i>
                             {{ __('user::auth.back_to') }} {{ __('user::auth.login') }}
@@ -55,11 +55,11 @@
 
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-start">
-                    <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.dashboard') }}"
                        class="logo-dark">
                         <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                     </a>
-                    <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.dashboard') }}"
                        class="logo-light">
                         <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                     </a>
@@ -79,7 +79,7 @@
 
                 <!-- form -->
                 <form
-                    action="{{ route('user.password.email',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    action="{{ route('user.password.email') }}"
                     method="post">
                     @csrf
                     <div class="mb-3">
@@ -99,7 +99,7 @@
                 <!-- Footer-->
                 <footer class="footer footer-alt">
                     <p class="text-muted">{{ __('user::auth.back_to') }} <a
-                            href="{{ route('user.login',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                            href="{{ route('user.login') }}"
                             class="text-muted ms-1"><b>{{ __('user::auth.log_in') }}</b></a>
                     </p>
                 </footer>

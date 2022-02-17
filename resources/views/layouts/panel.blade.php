@@ -40,7 +40,7 @@
                 <div class="container-fluid">
 
                     <!-- LOGO -->
-                    <a href="{{ route('user.dashboard',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                    <a href="{{ route('user.dashboard') }}"
                        class="topnav-logo">
                                 <span class="topnav-logo-lg">
                                     <img src="{{ asset(config('user.logo')) }}" alt="" height="40">
@@ -59,7 +59,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                                 <form class="p-3" method="get"
-                                      action="{{ route('user.search',[config('country.prefix')=>request()->country()->alpha2]) }}">
+                                      action="{{ route('user.search') }}">
                                     <input type="text" class="form-control"
                                            placeholder="{{ __('user::user.search_placeholder') }}"
                                            name="q" required>
@@ -111,7 +111,7 @@
                                 <div class="dropdown-item noti-title">
                                     <h5 class="m-0">
                                                 <span class="float-end">
-                                                    <a href="{{ route('user.notification.all_read',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                                    <a href="{{ route('user.notification.all_read') }}"
                                                        class="text-dark">
                                                         <small>{{ __('user::user.clear_all') }}</small>
                                                     </a>
@@ -121,7 +121,7 @@
 
                                 <div style="max-height: 230px;" data-simplebar>
                                     @foreach($notifications as $notification)
-                                        <a href="{{ route('user.notification.show',[config('country.prefix')=>request()->country()->alpha2,$notification]) }}"
+                                        <a href="{{ route('user.notification.show',$notification) }}"
                                            class="dropdown-item notify-item">
                                             <div class="notify-icon bg-primary">
                                                 <i class="{{ $notification->data['icon'] }}"></i>
@@ -140,7 +140,7 @@
                                 </div>
 
                                 <!-- All-->
-                                <a href="{{ route('user.notification.list',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                <a href="{{ route('user.notification.list') }}"
                                    class="dropdown-item text-center text-primary notify-item notify-all">
                                     {{ __('user::user.view_all') }}
                                 </a>
@@ -175,33 +175,33 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="{{ route('user.account.profile',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                <a href="{{ route('user.account.profile') }}"
                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-account-circle me-1"></i>
                                     <span>{{ __('user::user.my_account') }}</span>
                                 </a>
 
-                                <a href="{{ route('user.account.email',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                <a href="{{ route('user.account.email') }}"
                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-account-edit me-1"></i>
                                     <span>{{ __('user::user.update_email') }}</span>
                                 </a>
 
-                                <a href="{{ route('user.account.password',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                <a href="{{ route('user.account.password') }}"
                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-lock-outline me-1"></i>
                                     <span>{{ __('user::user.update_password') }}</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="{{ route('user.logout',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                <a href="{{ route('user.logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-logout me-1"></i>
                                     <span>{{ __('user::user.logout') }}</span>
                                 </a>
                                 <form id="logout-form"
-                                      action="{{ route('user.logout',[config('country.prefix')=>request()->country()->alpha2]) }}"
+                                      action="{{ route('user.logout') }}"
                                       method="POST"
                                       class="d-none">@csrf</form>
                             </div>
@@ -217,7 +217,7 @@
                     </a>
                     <div class="app-search">
                         <form method="get"
-                              action="{{ route('user.search',[config('country.prefix')=>request()->country()->alpha2]) }}">
+                              action="{{ route('user.search') }}">
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                        placeholder="{{ __('user::user.search_placeholder') }}" id="top-search"
@@ -264,7 +264,7 @@
                         <div class="text-md-end footer-links d-none d-md-block">
                             @foreach(config('user.footer_menus') as $menu)
                                 <a target="_blank"
-                                   href="{{ route($menu['url'],[config('country.prefix')=>request()->country()->alpha2]) }}">
+                                   href="{{ route($menu['url']) }}">
                                     {{ __('user::user.'.$menu['name']) }}
                                 </a>
                             @endforeach

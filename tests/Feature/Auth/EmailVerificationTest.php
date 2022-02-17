@@ -18,6 +18,7 @@ class EmailVerificationTest extends TestCase
     {
         parent::setUp();
         Country::factory(['alpha2' => config('country.default_alpha2')])->create();
+        URL::defaults([config('country.prefix') => \request()->country()->alpha2]);
     }
 
     public function test_email_verification_screen_can_be_rendered()
@@ -26,7 +27,7 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        $response = $this->actingAs($user)->get(route('user.verification.notice', [config('country.prefix') => request()->country()->alpha2]));
+        $response = $this->actingAs($user)->get(route('user.verification.notice'));
 
         $response->assertStatus(200);
     }
@@ -42,14 +43,14 @@ class EmailVerificationTest extends TestCase
         $verificationUrl = URL::temporarySignedRoute(
             'user.verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email), config('country.prefix') => request()->country()->alpha2]
+            ['id' => $user->id, 'hash' => sha1($user->email)]
         );
 
         $response = $this->actingAs($user)->get($verificationUrl);
 
         Event::assertDispatched(UserEmailVerified::class);
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(route('user.dashboard', [config('country.prefix') => request()->country()->alpha2, 'verified' => 1]));
+        $response->assertRedirect(route('user.dashboard', ['verified' => 1]));
     }
 
     public function test_email_is_not_verified_with_invalid_hash()
@@ -61,7 +62,7 @@ class EmailVerificationTest extends TestCase
         $verificationUrl = URL::temporarySignedRoute(
             'user.verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1('wrong-email'), config('country.prefix') => request()->country()->alpha2]
+            ['id' => $user->id, 'hash' => sha1('wrong-email')]
         );
 
         $this->actingAs($user)->get($verificationUrl);

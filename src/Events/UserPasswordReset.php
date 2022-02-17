@@ -3,11 +3,13 @@
 namespace Dealskoo\User\Events;
 
 use Dealskoo\User\Models\User;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class UserPasswordReset
 {
-    use SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
 

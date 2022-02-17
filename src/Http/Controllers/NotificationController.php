@@ -19,7 +19,7 @@ class NotificationController extends Controller
         return view('user::notifications', ['notifications' => $notifications]);
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, $alpha2, $id)
     {
         $notification = $request->user()->notifications()->where('id', $id)->first();
         abort_if(!$notification, 404);

@@ -8,10 +8,12 @@
 
             <!-- Logo -->
             <div class="auth-brand text-center text-lg-start">
-                <a href="{{ route('user.dashboard') }}" class="logo-dark">
+                <a href="{{ route('user.dashboard',[config('country.prefix') => request()->country()->alpha2]) }}"
+                   class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard') }}" class="logo-light">
+                <a href="{{ route('user.dashboard',[config('country.prefix') => request()->country()->alpha2]) }}"
+                   class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
             </div>
@@ -32,7 +34,8 @@
             </div>
 
             <!-- form -->
-            <form method="POST" action="{{ route('user.password.confirm') }}">
+            <form method="POST"
+                  action="{{ route('user.password.confirm',[config('country.prefix') => request()->country()->alpha2]) }}">
                 @csrf
                 <div class="mb-3">
                     <label for="password" class="form-label">{{ __('user::auth.password') }}</label>

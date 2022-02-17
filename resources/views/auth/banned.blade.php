@@ -12,7 +12,8 @@
                    class="logo-dark">
                     <span><img src="{{ asset(config('user.logo')) }}" alt="" height="40"></span>
                 </a>
-                <a href="{{ route('user.dashboard') }}" class="logo-light">
+                <a href="{{ route('user.dashboard',[config('country.prefix') => request()->country()->alpha2]) }}"
+                   class="logo-light">
                     <span><img src="{{ asset(config('user.logo_dark')) }}" alt="" height="40"></span>
                 </a>
             </div>

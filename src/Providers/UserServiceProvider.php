@@ -21,6 +21,12 @@ class UserServiceProvider extends ServiceProvider
         $this->app->bind(Dashboard::class, DefaultDashboard::class);
         $this->app->bind(Searcher::class, DefaultSearcher::class);
         $this->app->singleton('user_menu', function () {
+            Menu::create('user_navbar', function ($menu) {
+                $menu->enableOrdering();
+                $menu->setPresenter(UserPresenter::class);
+                $menu->route('user.dashboard', 'user::user.dashboard', [], ['icon' => 'uil-dashboard me-1']);
+            });
+
             return Menu::instance('user_navbar');
         });
     }
@@ -49,12 +55,6 @@ class UserServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'user');
 
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'user');
-
-        Menu::create('user_navbar', function ($menu) {
-            $menu->enableOrdering();
-            $menu->setPresenter(UserPresenter::class);
-            $menu->route('user.dashboard', 'user::user.dashboard', [], ['icon' => 'uil-dashboard me-1']);
-        });
 
         AdminMenu::route('admin.users.index', 'user::user.users', [], ['icon' => 'uil-users-alt', 'permission' => 'users.index'])->order(5);
         PermissionManager::add(new Permission('users.index', 'Users List'));

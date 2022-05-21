@@ -60,6 +60,7 @@ class UserServiceProvider extends ServiceProvider
         PermissionManager::add(new Permission('users.index', 'Users List'));
         PermissionManager::add(new Permission('users.show', 'View User'), 'users.index');
         PermissionManager::add(new Permission('users.edit', 'Edit User'), 'users.index');
+        PermissionManager::add(new Permission('users.login', 'Login User'), 'users.login');
 
         UserMenu::route('user.dashboard', 'user::user.dashboard', [], ['icon' => 'uil-dashboard me-1']);
     }

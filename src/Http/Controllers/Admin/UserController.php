@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Dealskoo\User\Models\User;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends AdminController
 {
@@ -39,6 +40,7 @@ class UserController extends AdminController
         $rows = [];
         $can_view = $request->user()->canDo('users.show');
         $can_edit = $request->user()->canDo('users.edit');
+        $can_login = $request->user()->canDo('users.login');
         foreach ($users as $user) {
             $row = [];
             $row[] = $user->id;
@@ -51,6 +53,11 @@ class UserController extends AdminController
             $row[] = Carbon::parse($user->created_at)->format('Y-m-d H:i:s');
             $row[] = Carbon::parse($user->updated_at)->format('Y-m-d H:i:s');
 
+            $login_link = '';
+            if ($can_login) {
+                $login_link = '<a href="' . route('admin.users.login', $user) . '" class="action-icon" target="_blank"><i class="mdi mdi-view-dashboard"></i></a>';
+            }
+
             $view_link = '';
             if ($can_view) {
                 $view_link = '<a href="' . route('admin.users.show', $user) . '" class="action-icon"><i class="mdi mdi-eye"></i></a>';
@@ -60,7 +67,7 @@ class UserController extends AdminController
             if ($can_edit) {
                 $edit_link = '<a href="' . route('admin.users.edit', $user) . '" class="action-icon"><i class="mdi mdi-square-edit-outline"></i></a>';
             }
-            $row[] = $view_link . $edit_link;
+            $row[] = $login_link . $view_link . $edit_link;
             $rows[] = $row;
         }
         return [
@@ -92,5 +99,13 @@ class UserController extends AdminController
         $user->status = $request->boolean('status', false);
         $user->save();
         return back()->with('success', __('admin::admin.update_success'));
+    }
+
+    public function login(Request $request, $id)
+    {
+        abort_if(!$request->user()->canDo('users.login'), 403);
+        $user = User::query()->findOrFail($id);
+        Auth::guard('user')->login($user);
+        return redirect(route('user.dashboard'));
     }
 }

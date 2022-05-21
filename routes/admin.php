@@ -10,6 +10,7 @@ Route::middleware(['web', 'admin_locale'])->prefix(config('admin.route.prefix'))
     });
 
     Route::middleware(['auth:admin', 'admin_active'])->group(function () {
+        Route::get('users/{id}/login',[UserController::class,'login'])->name('users.login');
         Route::resource('users', UserController::class)->except(['create', 'store', 'destroy']);
     });
 

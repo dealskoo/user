@@ -63,7 +63,7 @@ class UserControllerTest extends TestCase
         $admin = Admin::factory()->isOwner()->create();
         $user = User::factory()->create();
         $response = $this->actingAs($admin, 'admin')->get(route('admin.users.login', $user));
-        $this->assertAuthenticated('user');
+        $this->assertAuthenticatedAs($user, 'user');
         $response->assertRedirect(route('user.dashboard'));
     }
 }

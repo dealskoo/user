@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'country_id' => $request->country_id,
-            'source' => $request->cookie('source', null),
+            'source' => $request->cookie('af_source', null),
         ]);
         event(new UserRegistered($user));
 

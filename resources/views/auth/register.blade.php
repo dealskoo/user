@@ -35,7 +35,6 @@
             <form action="{{ route('user.register') }}"
                   method="post">
                 @csrf
-                <input type="hidden" name="source" value="{{ request('s') }}">
                 <div class="mb-3">
                     <label for="full_name" class="form-label">{{ __('user::auth.full_name') }}</label>
                     <input class="form-control" type="text" id="full_name" name="name" value="{{ old('name') }}"

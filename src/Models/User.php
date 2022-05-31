@@ -21,6 +21,7 @@ class User extends Authentication implements MustVerifyEmail
     protected $fillable = [
         'slug',
         'avatar',
+        'cover',
         'name',
         'bio',
         'email',
@@ -47,6 +48,11 @@ class User extends Authentication implements MustVerifyEmail
         return empty($this->avatar) ?
             Avatar::create($this->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) :
             Storage::url($this->avatar);
+    }
+
+    public function getCoverUrlAttribute()
+    {
+        return empty($this->cover) ? null : Storage::url($this->cover);
     }
 
     public function sendPasswordResetNotification($token)

@@ -264,7 +264,7 @@
                             @foreach(config('user.footer_menus') as $menu)
                                 <a target="_blank"
                                    href="{{ route($menu['url']) }}">
-                                    {{ __('user::user.'.$menu['name']) }}
+                                    {{ __($menu['name']) }}
                                 </a>
                             @endforeach
                         </div>

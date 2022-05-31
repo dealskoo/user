@@ -11,13 +11,13 @@ return [
     'profile_prefix' => 'http://127.0.0.1/u/',
     'copyright' => '2014 - ' . date('Y') . ' ' . config('app.name'),
     'footer_menus' => [[
-        'name' => 'about',
+        'name' => 'About',
         'url' => 'user.dashboard'
     ], [
-        'name' => 'support',
+        'name' => 'Support',
         'url' => 'user.register'
     ], [
-        'name' => 'contact_us',
+        'name' => 'Contact US',
         'url' => 'user.login'
     ]],
     'terms_and_conditions_url' => 'user.login',

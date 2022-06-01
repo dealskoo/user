@@ -12,11 +12,12 @@ use Illuminate\Foundation\Auth\User as Authentication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 use Laravolt\Avatar\Facade as Avatar;
 
 class User extends Authentication implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes, HasCountry, HasSlug;
+    use HasFactory, Notifiable, SoftDeletes, HasCountry, HasSlug, Searchable;
 
     protected $fillable = [
         'slug',
@@ -68,5 +69,24 @@ class User extends Authentication implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyUserEmail());
+    }
+
+    public function shouldBeSearchable()
+    {
+        return $this->status;
+    }
+
+    public function toSearchableArray()
+    {
+        return $this->only([
+            'slug',
+            'name',
+            'bio',
+            'email',
+            'country_id',
+            'company_name',
+            'website',
+            'source'
+        ]);
     }
 }

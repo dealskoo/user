@@ -2,7 +2,6 @@
 
 namespace Dealskoo\User\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use Dealskoo\User\Models\User;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Illuminate\Http\Request;
@@ -50,8 +49,8 @@ class UserController extends AdminController
             $row[] = $user->country->name;
             $row[] = $user->source;
             $row[] = $user->status ? '<span class="badge bg-success">' . __('user::user.active') . '</span>' : '<span class="badge bg-danger">' . __('user::user.inactive') . '</span>';
-            $row[] = Carbon::parse($user->created_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($user->updated_at)->format('Y-m-d H:i:s');
+            $row[] = $user->created_at->format('Y-m-d H:i:s');
+            $row[] = $user->updated_at->format('Y-m-d H:i:s');
 
             $login_link = '';
             if ($can_login) {

@@ -19,6 +19,8 @@ class User extends Authentication implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes, HasCountry, HasSlug, Searchable;
 
+    protected $appends = ['avatar_url', 'cover_url'];
+
     protected $fillable = [
         'slug',
         'avatar',

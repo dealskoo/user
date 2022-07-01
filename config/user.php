@@ -1,5 +1,6 @@
 <?php
 return [
+    'default_cover' => '/vendor/admin/images/cover_placeholder.svg',
     'route' => [
         'prefix' => env('USER_ROUTE_PREFIX', 'user'),
     ],

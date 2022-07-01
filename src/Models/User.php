@@ -55,7 +55,7 @@ class User extends Authentication implements MustVerifyEmail
 
     public function getCoverUrlAttribute()
     {
-        return empty($this->cover) ? null : Storage::url($this->cover);
+        return empty($this->cover) ? asset(config('user.default_cover')) : Storage::url($this->cover);
     }
 
     public function sendPasswordResetNotification($token)
